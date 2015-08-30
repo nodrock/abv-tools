@@ -1,5 +1,11 @@
-//
+/**
+ * 
+ **/
 #include "abv.h"
+#include "abv-common.h"
+
+//#undef main
+
 
 class Texture
 {
@@ -152,8 +158,8 @@ int Texture::getHeight()
 	return height;
 }
 ///
-int render_quad( AbvRect* rect, AbvColor* color, int border,
-	AbvColor* borderColor )
+int render_quad( SDL_Rect* rect, SDL_Color* color, int border,
+	SDL_Color* borderColor )
 { 
 	int r = 0;	
 
@@ -178,9 +184,9 @@ int render_quad( AbvRect* rect, AbvColor* color, int border,
 int render_quad_c( int x, int y, int w, int h, int r, int g, int b, int a,
 	int border, int br, int bg, int bb, int ba )
 { 
-	AbvRect rect = {x,y,w,h};
-	AbvColor fillColor = {r,g,b,a};
-	AbvColor borderColor = {br,bg,bb,ba};
+	SDL_Rect rect = {x,y,w,h};
+	SDL_Color fillColor = {r,g,b,a};
+	SDL_Color borderColor = {br,bg,bb,ba};
 	return render_quad(&rect, &fillColor, border, &borderColor);
 }// render_quad_c()
 
@@ -323,7 +329,6 @@ void delay(Uint32 ms)
 
 void close_sdl()
 {
-// Textures.clear(); ???
 	for(auto it = Textures.begin(); it != Textures.end(); it++){
 		Textures[it->first].free();
 	}
@@ -406,7 +411,7 @@ int render_text(const char* font,const char* text, int x, int y,
 int render_text_c(const char* font,const char* text, int x, int y,
 	int r,int g,int b,int a, int wrap)
 {
-	SDL_Color color={r,g,b, a };
+	SDL_Color color={r,g,b,a};
 
 	return render_text(font,text,x,y,color,wrap);
 }// render_text_c()

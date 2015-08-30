@@ -4,7 +4,6 @@
 #include "abv.h"
 #include "hx.h"
 
-
 value clear_screen_hx()
 {
 	int r = clear_screen();
@@ -68,12 +67,12 @@ value poll_event_hx()
 value get_window_size_hx()
 {
 	int w = 0, h=0;
-	SDL_GetWindowSize(gWindow, &w, &h);
+//	SDL_GetWindowSize(gWindow, &w, &h);
 	
 	value result = alloc_array( 2 );
 	val_array_set_i(result,0,alloc_int( w ) );
 	val_array_set_i(result,1,alloc_int( h ) );
-   
+  
 	return result;
 }// get_window_size_hx()
 

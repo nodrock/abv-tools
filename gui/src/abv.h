@@ -1,64 +1,8 @@
-#ifdef ANDROID
-#include <android/log.h>
-#endif
-
-#ifdef HX_LINUX
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-	#ifdef ABV_AUDIO
-#include <SDL2/SDL_mixer.h>
-	#endif
-#else
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-	#ifdef ABV_AUDIO
-#include <SDL_mixer.h>
-	#endif
-#endif
-
-#include <map>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string>
-#include <cmath>
-// ./emcc tests/sdl2glshader.c -s USE_SDL=2 -s LEGACY_GL_EMULATION=1 -o sdl2.html
-// emscripten
-
+/**
+ * 
+ **/
 const int MAX_EVENTS = 10;
 
-//Screen dimension 
-extern int gScreenWidth;
-extern int gScreenHeight;
-extern SDL_Window* gWindow;
-
-struct AbvColor {
-  Uint8 r;
-  Uint8 g;
-  Uint8 b;
-  Uint8 a;
-} ;
-
-struct AbvRect {
-  int x;
-  int y;
-  int w;
-  int h;
-} ;
-
-enum AbvEvent
-{
-	AE_EVENT 			= 0,
-	AE_QUIT 			= 1,
-	AE_MOUSE_MOVE 		= 2,
-	AE_MOUSE_DOWN 		= 3,
-	AE_MOUSE_UP 		= 4,
-	AE_MOUSE_X 			= 5,
-	AE_MOUSE_Y 			= 6,
-	AE_KEY_DOWN 		= 7,
-	AE_KEY_UP 			= 8
-};
 
 enum MusicAction
 {
@@ -176,33 +120,19 @@ extern "C" bool init_sdl(const char* name, int width, int height);
 
 extern "C" void close_sdl();
 
-extern "C" void delay(Uint32 ms);
-
 extern "C" int clear_screen();
 
 extern "C" void render_screen();
 
-extern "C" int abv_key(int key);
-
-extern "C" int render_texture(const char* path,int x, int y, SDL_Rect* tile=NULL, float scale=1.0);
-
 extern "C" int render_texture_c(const char* path, int x, int y, int tx, int ty, int tw,
 	int th, float scale);
 	
-extern "C" TTF_Font* get_font(const char* path, int size);
-
-extern "C" int render_text(const char* font,const char* text, int x, int y,
-	SDL_Color color, int wrap);
-
 extern "C" int render_text_c(const char* font,const char* text, int x, int y,
 	int r,int g,int b,int a, int wrap);
 
 extern "C" int* poll_event();
 
 extern "C" int play_music(const char* path, int action);
-
-extern "C" int render_quad( AbvRect* rect, AbvColor* color, int border,
-	AbvColor* borderColor );
 
 extern "C" int render_quad_c( int x, int y, int w, int h, int r, int g, int b, int a,
 	int border, int br, int bg, int bb, int ba );
